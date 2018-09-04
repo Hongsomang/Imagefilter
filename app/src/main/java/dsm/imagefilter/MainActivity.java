@@ -1,6 +1,7 @@
 package dsm.imagefilter;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +10,8 @@ import android.widget.Button;
 import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
-    private int REQ_CODE_SELECT_IMAGE=10;
+    final int REQ_CODE_SELECT_IMAGE=10;
+    private Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
         if(resultCode==RESULT_OK){
             switch (requestCode){
                 case REQ_CODE_SELECT_IMAGE:
-                    
+                    uri=data.getData();
+                    Intent intent=new Intent(getApplicationContext(),ImageEditActivity.class);
+                    intent.setData(uri);
+
                     break;
                 case 20:
                     break;
