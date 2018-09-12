@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="갤러리"
-        android:onClick="@+id/gallery_onClick"
+        android:onClick="gallery_onClick"
         />
 
 

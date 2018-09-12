@@ -11,17 +11,19 @@ import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity {
     final int REQ_CODE_SELECT_IMAGE=10;
+    private Button gallery_btn;
     private Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        gallery_btn=(Button)findViewById(R.id.gallery_btn);
 
     }
     public void gallery_onClick(View v){
         Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        intent.setType("image/*");
+        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
         startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
     }
 
@@ -34,10 +36,9 @@ public class MainActivity extends AppCompatActivity {
                     uri=data.getData();
                     Intent intent=new Intent(getApplicationContext(),ImageEditActivity.class);
                     intent.setData(uri);
+                    startActivity(intent);
+                    break;
 
-                    break;
-                case 20:
-                    break;
                 default:
                     break;
             }
