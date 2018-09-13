@@ -1,5 +1,6 @@
 package dsm.imagefilter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
@@ -14,12 +15,22 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import pl.polidea.view.ZoomView;
 
 /**
  * Created by ghdth on 2018-09-03.
@@ -27,20 +38,78 @@ import java.io.IOException;
 
 public class ImageEditActivity extends AppCompatActivity {
     private ImageView image;
+    private android.support.v7.widget.Toolbar top_tab;
+    private RelativeLayout bottom_tab;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
+
+        View v=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.zoom_item,null,false);
+        LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ZoomView zoomView =new ZoomView(this);
+        zoomView.addView(v);
+        zoomView.setLayoutParams(layoutParams);
+        zoomView.setMiniMapEnabled(true);
+        zoomView.setMaxZoom(4f);
+        zoomView.setMiniMapCaptionSize(20);
+        //zoomView.setMiniMapCaption("mini map test");
+
+        RelativeLayout container=(RelativeLayout)findViewById(R.id.container);
+        container.addView(zoomView);
+
+        top_tab=(android.support.v7.widget.Toolbar)findViewById(R.id.top_tab);
+        bottom_tab=(RelativeLayout) findViewById(R.id.bottom_tab);
+
         Intent intent=getIntent();
         Uri uri=intent.getData();
         Log.d("ImageEditActivity:",uri.toString());
-        image=(ImageView)findViewById(R.id.Image_edit);
+        image=(ImageView)v.findViewById(R.id.Image_edit);
 
-        image.setImageBitmap(doInvert(change_bitmap(uri)));
+        image.setImageURI(uri);
+
+       // image.setImageBitmap(doInvert(change_bitmap(uri)));
 
 
         //Glide.with(this).load(uri.toString()).into(image);
     }
+   @Override
+
+    public boolean onTouchEvent(MotionEvent event) {
+
+
+        int action = event.getAction();
+
+        switch(action) {
+
+
+
+
+            case MotionEvent.ACTION_UP :    //화면을 터치했다 땠을때
+
+                Toast.makeText(getApplicationContext(),"터치",Toast.LENGTH_LONG).show();
+                if(top_tab.getVisibility()==View.VISIBLE&&bottom_tab.getVisibility()==View.VISIBLE){
+                    top_tab.setVisibility(View.GONE);
+                    bottom_tab.setVisibility(View.GONE);
+                }
+                else if(top_tab.getVisibility()==View.GONE&&bottom_tab.getVisibility()==View.GONE){
+                    top_tab.setVisibility(View.VISIBLE);
+                    bottom_tab.setVisibility(View.VISIBLE);
+                }
+
+                break;
+
+
+
+        }
+
+        return super.onTouchEvent(event);
+
+    }
+
+
+
     public  Bitmap change_bitmap(Uri uri){
         Bitmap bm = null;
         if(uri!=null&&!uri.toString().isEmpty()){

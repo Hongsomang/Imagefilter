@@ -1,14 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000">
-    <ImageView
-        android:id="@+id/Image_edit"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary">
+    <RelativeLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:gravity="center"
 
-        />
-</LinearLayout>
+        ></RelativeLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/top_tab"
+        app:contentInsetStart="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="#4bffffff"
+          android:orientation="horizontal">
+          <Button
+              android:layout_width="30dp"
+              android:layout_height="30dp"
+              android:background="@drawable/back"
+              android:layout_centerVertical="true"
+              android:onClick="image_edit_back"
+
+              />
+          <Button
+              android:layout_width="50dp"
+              android:layout_height="50dp"
+              android:text="저장"
+              android:layout_alignParentRight="true"
+              android:onClick="image_edit_save"
+              android:background="@null"
+              />
+          <TextView
+              android:id="@+id/text_tv"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:textColor="#fff"
+              android:text="편집"/>
+
+
+      </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:id="@+id/bottom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#4bffffff"
+        android:orientation="vertical">
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
