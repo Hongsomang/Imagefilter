@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,6 +31,7 @@ import com.bumptech.glide.Glide;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import pl.polidea.view.ZoomView;
 
@@ -40,11 +43,18 @@ public class ImageEditActivity extends AppCompatActivity {
     private ImageView image;
     private android.support.v7.widget.Toolbar top_tab;
     private RelativeLayout bottom_tab;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private ArrayList<Item_bottom_tab> list;
+    private LinearLayoutManager linearLayoutManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_edit);
 
+
+        //ZooView
         View v=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.zoom_item,null,false);
         LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -68,8 +78,17 @@ public class ImageEditActivity extends AppCompatActivity {
         image=(ImageView)v.findViewById(R.id.Image_edit);
 
         image.setImageURI(uri);
+/////////////////////////////////////////////////////////////////////////////////////////
+        //RecyclerView
+        recyclerView=(RecyclerView)findViewById(R.id.bottom_tab_rv);
+        linearLayoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
-       // image.setImageBitmap(doInvert(change_bitmap(uri)));
+        mAdapter=new Adapter_bottom_tab(getApplicationContext(),list);
+        list.add(new Item_bottom_tab(R.drawable.ex,"테스트1"));
+
+
+        // image.setImageBitmap(doInvert(change_bitmap(uri)));
 
 
         //Glide.with(this).load(uri.toString()).into(image);
