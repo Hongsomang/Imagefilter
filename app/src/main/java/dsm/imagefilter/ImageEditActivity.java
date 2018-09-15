@@ -86,6 +86,10 @@ public class ImageEditActivity extends AppCompatActivity {
 
         mAdapter=new Adapter_bottom_tab(getApplicationContext(),list);
         list.add(new Item_bottom_tab(R.drawable.ex,"테스트1"));
+        list.add(new Item_bottom_tab(R.drawable.ex,"테스트2"));
+        list.add(new Item_bottom_tab(R.drawable.ex,"테스트3"));
+        list.add(new Item_bottom_tab(R.drawable.ex,"테스트4"));
+        list.add(new Item_bottom_tab(R.drawable.ex,"테스트5"));
 
 
         // image.setImageBitmap(doInvert(change_bitmap(uri)));
