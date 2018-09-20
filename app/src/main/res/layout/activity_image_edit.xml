@@ -53,9 +53,26 @@
 
     </android.support.v7.widget.Toolbar>
     <RelativeLayout
-        android:id="@+id/bottom_tab"
+        android:id="@+id/item_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_above="@+id/bottom_tab"
+        android:background="#4bffffff"
+
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/item_tab_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="7dp">
+
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/bottom_tab"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="#4bffffff"
         android:orientation="vertical">
@@ -63,7 +80,10 @@
             android:id="@+id/bottom_tab_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+
+            >
 
         </android.support.v7.widget.RecyclerView>
     </RelativeLayout>
