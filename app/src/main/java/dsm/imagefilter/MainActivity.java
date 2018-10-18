@@ -1,5 +1,6 @@
 package dsm.imagefilter;
 
+import android.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -9,23 +10,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 
-public class MainActivity extends AppCompatActivity {
+import dsm.imagefilter.databinding.ActivityMainBinding;
+
+public class MainActivity extends AppCompatActivity implements OnClick {
+    private ActivityMainBinding binding;
     final int REQ_CODE_SELECT_IMAGE=10;
-    private Button gallery_btn;
+    //private Button gallery_btn;
     private Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        gallery_btn=(Button)findViewById(R.id.gallery_btn);
+        //setContentView(R.layout.activity_main);
+        //gallery_btn=(Button)findViewById(R.id.gallery_btn);
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_main);
 
     }
-    public void gallery_onClick(View v){
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -43,5 +43,13 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    @Override
+    public void onChagngeGalleryClick(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+        startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
     }
 }

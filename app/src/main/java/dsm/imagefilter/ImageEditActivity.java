@@ -2,6 +2,7 @@ package dsm.imagefilter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
@@ -35,6 +36,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import dsm.imagefilter.databinding.ActivityImageEditBinding;
+import dsm.imagefilter.databinding.ActivityMainBinding;
 import pl.polidea.view.ZoomView;
 
 /**
@@ -43,17 +46,19 @@ import pl.polidea.view.ZoomView;
 
 public class ImageEditActivity extends AppCompatActivity {
     private ImageView image;
-    private android.support.v7.widget.Toolbar top_tab;
-    private RelativeLayout bottom_tab,item_tab;
+    //private android.support.v7.widget.Toolbar top_tab;
+   // private RelativeLayout bottom_tab,item_tab;
     private RecyclerView recyclerView,item_rv;
     private RecyclerView.Adapter mAdapter,item_mAdapter;
     private ArrayList<Item_bottom_tab> list,item_list;
     private LinearLayoutManager linearLayoutManager,item_lm;
 
+    private ActivityImageEditBinding binding;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_image_edit);
+        binding= DataBindingUtil.setContentView(this,R.layout.activity_image_edit);
+
 
 
         //ZooView
@@ -68,12 +73,12 @@ public class ImageEditActivity extends AppCompatActivity {
         zoomView.setMiniMapCaptionSize(20);
         //zoomView.setMiniMapCaption("mini map test");
 
-        RelativeLayout container=(RelativeLayout)findViewById(R.id.container);
-        container.addView(zoomView);
+       // RelativeLayout container=(RelativeLayout)findViewById(R.id.container);
+        binding.container.addView(zoomView);
 
-        top_tab=(android.support.v7.widget.Toolbar)findViewById(R.id.top_tab);
-        bottom_tab=(RelativeLayout) findViewById(R.id.bottom_tab);
-        item_tab=(RelativeLayout)findViewById(R.id.item_tab);
+        //top_tab=(android.support.v7.widget.Toolbar)findViewById(R.id.top_tab);
+       // bottom_tab=(RelativeLayout) findViewById(R.id.bottom_tab);
+       // item_tab=(RelativeLayout)findViewById(R.id.item_tab);
 
 
 
@@ -82,10 +87,12 @@ public class ImageEditActivity extends AppCompatActivity {
         Log.d("ImageEditActivity:",uri.toString());
         image=(ImageView)v.findViewById(R.id.Image_edit);
 
+
        image.setImageURI(uri);
 /////////////////////////////////////////////////////////////////////////////////////////
         //RecyclerView
-        recyclerView=(RecyclerView)findViewById(R.id.bottom_tab_rv);
+        //recyclerView=(RecyclerView)findViewById(R.id.bottom_tab_rv);
+
        // item_rv=(RecyclerView)findViewById(R.id.item_tab_rv);
 
 
@@ -93,15 +100,15 @@ public class ImageEditActivity extends AppCompatActivity {
         //item_lm=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
       //  item_lm.setOrientation(LinearLayoutManager.HORIZONTAL);
-
-        recyclerView.setLayoutManager(linearLayoutManager);
+        binding.bottomTabRv.setLayoutManager(linearLayoutManager);
+       // recyclerView.setLayoutManager(linearLayoutManager);
        // item_rv.setLayoutManager(item_lm);
 
         list=new ArrayList<>();
        // item_list=new ArrayList<>();
         mAdapter=new Adapter_bottom_tab(getApplicationContext(),list);
        // item_mAdapter=new Adapter_bottom_tab(getApplicationContext(),item_list);
-        recyclerView.setAdapter(mAdapter);
+        binding.bottomTabRv.setAdapter(mAdapter);
         //item_rv.setAdapter(item_mAdapter);
 
         list.add(new Item_bottom_tab(R.drawable.ex,"테스트1"));
@@ -131,30 +138,30 @@ public class ImageEditActivity extends AppCompatActivity {
 
         switch(action) {
             case MotionEvent.ACTION_UP :    //화면을 터치했다 땠을때
-                if(item_tab.getVisibility()==View.VISIBLE){
-                    item_tab.setVisibility(View.GONE);
+                if(binding.itemTab.getVisibility()==View.VISIBLE){
+                    binding.itemTab.setVisibility(View.GONE);
                     Animation item_tab_ani= AnimationUtils.loadAnimation(this,R.anim.remove);
-                    item_tab.startAnimation(item_tab_ani);
+                    binding.itemTab.startAnimation(item_tab_ani);
                 }
                 Toast.makeText(getApplicationContext(),"터치",Toast.LENGTH_LONG).show();
-                if(top_tab.getVisibility()==View.VISIBLE&&bottom_tab.getVisibility()==View.VISIBLE){
-                    top_tab.setVisibility(View.GONE);
-                    bottom_tab.setVisibility(View.GONE);
+                if(binding.topTab.getVisibility()==View.VISIBLE&&binding.bottomTab.getVisibility()==View.VISIBLE){
+                    binding.topTab.setVisibility(View.GONE);
+                    binding.bottomTab.setVisibility(View.GONE);
 
                     Animation top_tab_ani= AnimationUtils.loadAnimation(this,R.anim.remove);
                     Animation bottom_tab_ani= AnimationUtils.loadAnimation(this,R.anim.remove);
 
-                    top_tab.startAnimation(top_tab_ani);
-                    bottom_tab.startAnimation(bottom_tab_ani);
+                    binding.topTab.startAnimation(top_tab_ani);
+                    binding.bottomTab.startAnimation(bottom_tab_ani);
                 }
-                else if(top_tab.getVisibility()==View.GONE&&bottom_tab.getVisibility()==View.GONE){
-                    top_tab.setVisibility(View.VISIBLE);
-                    bottom_tab.setVisibility(View.VISIBLE);
+                else if(binding.topTab.getVisibility()==View.GONE&&binding.bottomTab.getVisibility()==View.GONE){
+                    binding.topTab.setVisibility(View.VISIBLE);
+                    binding.bottomTab.setVisibility(View.VISIBLE);
                     Animation top_tab_ani= AnimationUtils.loadAnimation(this,R.anim.alpha);
                     Animation bottom_tab_ani= AnimationUtils.loadAnimation(this,R.anim.alpha);
 
-                    top_tab.startAnimation(top_tab_ani);
-                    bottom_tab.startAnimation(bottom_tab_ani);
+                    binding.topTab.startAnimation(top_tab_ani);
+                    binding.bottomTab.startAnimation(bottom_tab_ani);
                 }
 
                 break;

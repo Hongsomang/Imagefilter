@@ -1,92 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary">
+    >
+    <data>
+        <variable
+            name="ImageEdit"
+            type="dsm.imagefilter.ImageEditActivity"/>
+    </data>
     <RelativeLayout
-        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-
-        ></RelativeLayout>
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/top_tab"
-        app:contentInsetStart="0dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        >
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:background="#4bffffff"
-          android:orientation="horizontal">
-          <Button
-              android:layout_width="30dp"
-              android:layout_height="30dp"
-              android:background="@drawable/back"
-              android:layout_centerVertical="true"
-              android:onClick="image_edit_back"
-
-              />
-          <Button
-              android:layout_width="50dp"
-              android:layout_height="50dp"
-              android:text="저장"
-              android:layout_alignParentRight="true"
-              android:onClick="image_edit_save"
-              android:background="@null"
-              />
-          <TextView
-              android:id="@+id/text_tv"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-              android:textColor="#fff"
-              android:text="편집"/>
-
-
-      </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
-    <RelativeLayout
-        android:id="@+id/item_tab"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_above="@+id/bottom_tab"
-        android:background="#4bffffff"
-
-        >
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/item_tab_rv"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+        <RelativeLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="7dp">
+            android:gravity="center"
 
-        </android.support.v7.widget.RecyclerView>
-    </RelativeLayout>
-    <RelativeLayout
-        android:id="@+id/bottom_tab"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:background="#4bffffff"
-        android:orientation="vertical">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/bottom_tab_rv"
+            ></RelativeLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/top_tab"
+            app:contentInsetStart="0dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
+            android:layout_height="50dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#4bffffff"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/back"
+                    android:layout_centerVertical="true"
+                    android:onClick="@{ImageEdit.ImageEdBack}"
+
+                    />
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:text="저장"
+                    android:layout_alignParentRight="true"
+                    android:onClick="@{ImageEdit.ImageEdSave}"
+                    android:background="@null"
+                    />
+                <TextView
+                    android:id="@+id/text_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="#fff"
+                    android:text="편집"/>
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+        <RelativeLayout
+            android:id="@+id/item_tab"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@+id/bottom_tab"
+            android:background="#4bffffff"
 
             >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/item_tab_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="7dp">
 
-        </android.support.v7.widget.RecyclerView>
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/bottom_tab"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="#4bffffff"
+            android:orientation="vertical">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/bottom_tab_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+
+                >
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+
     </RelativeLayout>
+</layout>
 
 
-</RelativeLayout>
+
+
